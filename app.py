@@ -41,10 +41,10 @@ def enrich_row(row):
 
 
 def main():
-  st.title('CSV Enricher')
+  st.title('SIRETiser')
 
   # Allow the user to upload a CSV file
-  uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+  uploaded_file = st.file_uploader("Choisir un fichier CSV. Attention, la colonne comportant les noms des entreprises à SIRETISER doit s'intituler 'Nom' !", type="csv")
   if uploaded_file is not None:
     # Read the CSV file into a data frame
     df = pd.read_csv(uploaded_file)
@@ -53,11 +53,11 @@ def main():
     # Display the enriched data
     st.dataframe(enriched_df)
     # Allow the user to download the enriched data
-    st.markdown('Click the button below to download the enriched data as a CSV file.')
-    if st.button('Download CSV'):
+    st.markdown('CLiquer sur le bouton ci-dessous pour télécharger le fichier CSV.')
+    if st.button('Générer le CSV'):
       csv = enriched_df.to_csv(index=False)
       b64 = base64.b64encode(csv.encode()).decode()  # some strings <-> bytes conversions necessary here
-      href = f'<a href="data:file/csv;base64,{b64}" download="enriched_data.csv">Download enriched data</a>'
+      href = f'<a href="data:file/csv;base64,{b64}" download="enriched_data.csv">Télécharger le fichier CSV</a>'
       st.markdown(href, unsafe_allow_html=True)
 
 if __name__ == '__main__':
